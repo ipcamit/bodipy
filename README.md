@@ -53,7 +53,7 @@ Requirements:
 4. Scikit-learn (for Gaussian Process)
 
 This program is part of [MOLDIS: A big data analytics platform for molecular discovery](https://moldis.tifrh.res.in/). Please find complementary web interface at [`https://moldis.tifrh.res.in/data/bodipy`](https://moldis.tifrh.res.in/data/bodipy).
-![MOLDIS: A big data analytics platform for molecular discovery](https://moldis.tifrh.res.in/Images/MolDis.png)
+[![MOLDIS: A big data analytics platform for molecular discovery](https://moldis.tifrh.res.in/Images/MolDis.png)](https://moldis.tifrh.res.in/)
 
 Licence: MIT
 
