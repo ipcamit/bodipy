@@ -16,7 +16,6 @@ Additional parameters can be sought using `--help` argument. Given below are all
 | Flag/ arg | Description | Default [range] | Compulsory |
 |:----:|:-----------:|:-------:|:----------:|
 |[target]| Target S0->S1 value, in eV. Positional argument, non optional.| - | &#10003; |
-|
 | --group, -g | # of substitutions in target BODIPY. | 2 [2, 7]|&#x2717;|
 |  --data -d | Location of datafiles to be used in KRR ML, contains descriptor and coefficients.| `./data`|&#x2717;|
 |  --restart, -r | # of evaluations for single EI evaluation. More evaluations give more robust minima, with higher computation cost. | 5 [1, &#8734;] | &#x2717;|
