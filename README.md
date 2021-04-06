@@ -34,7 +34,7 @@ Iterations 200; Initial evaluations 5
 Bayesian opt. parameters:
  Exploration/Exploitation param: 0.010000; Eval. per EI: 5
 =================================================================
-ITER    GROUPS          POS             S0S1(eV)        Target
+ITER    POS            GROUPS             S0S1(eV)        Target
 =================================================================
 0       1 6             28 27           3.337201        2.700000
 1       3 5             29 30           3.184931        2.700000

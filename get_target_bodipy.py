@@ -181,7 +181,7 @@ y_prev_old = -99.0
 
 # ================MAIN LOOP========================
 print("=================================================================")
-print("ITER\tGROUPS\t\tPOS\t\tS0S1(eV)\tTarget")
+print("ITER\tPOS\t\tGROUPS\t\tS0S1(eV)\tTarget")
 print("=================================================================")
 for i in range(n_iter):
     # for iteration i, obtain updated GPR model
