@@ -52,6 +52,8 @@ Requirements:
 3. Scipy (scipy.optimize.minimize for iter minimization)
 4. Scikit-learn (for Gaussian Process)
 
+It also depends on [MOPAC](http://openmopac.net/), [OBabel](http://openbabel.org/wiki/Main_Page), and [QML](https://www.qmlcode.org/) for structure minimization, file conversion,  and descriptor generation.
+
 This program is part of [MOLDIS: A big data analytics platform for molecular discovery](https://moldis.tifrh.res.in/). Please find complementary web interface at [`https://moldis.tifrh.res.in/data/bodipy`](https://moldis.tifrh.res.in/data/bodipy).
 [![MOLDIS: A big data analytics platform for molecular discovery](https://moldis.tifrh.res.in/Images/MolDis.png)](https://moldis.tifrh.res.in/)
 
