@@ -66,8 +66,10 @@ class KRRModel:
 
     def __init__(self, target, data_dir=data_dir):
         self.desc = np.load("{}/desc.npy".format(data_dir))
-        self.desc = self.desc.astype("float")
+        # self.desc = self.desc[0:2000,:]
+        # self.desc = self.desc.astype("float")
         self.coeff = np.load("{}/coeff.npy".format(data_dir))
+        # self.coeff = self.coeff[0:2000]
         # self.sigma = 26.57
         self.sigma = 840.087535153
         self.target = target
@@ -200,7 +202,7 @@ for i in range(n_seeds):
 
 y_prev_old = -99.0
 
-# ================MAIN LOOP========================
+# ================MAIN LOOP===============================================
 print("=================================================================")
 print("ITER\tPOS\t\tGROUPS\t\tS0S1(eV)\tTarget")
 print("=================================================================")
@@ -210,6 +212,21 @@ for i in range(n_iter):
 
     # obtain next location using EI
     x_next = bo.next_location(x_prev, y_prev, gpr_model, constraints)
+
+    unique_pos = False
+    while not unique_pos:
+        # if positions are not unique then discard it and generate one more
+        # random position to shuffle away
+        # Ideally shall replace with symmetric position, but this helps in
+        # adding more random seeding data
+        tmp_positions = np.squeeze(x_next[0:n_groups]).astype(int).tolist()
+        if len(set(tmp_positions)) <  n_groups:
+            tmp = np.random.choice(positions, n_groups, replace=False)
+            tmp = np.insert(tmp, len(tmp), 
+                np.random.choice(groups, n_groups))
+            x_next = tmp
+        else:
+            unique_pos = True
 
     # get the loss value at proposed location
     y_next = kkr.get_loss(kkr.gen_descriptor(x_next))
