@@ -210,7 +210,7 @@ class GenerateBodipy:
         # Run obabel
         obabel_result = subprocess.run(
             [self.obabel, "-ixyz",self.file_out, "-omopcrt", 
-            "-xk PM7 CHARGE=0 CYCLES=9999","-Otmp.mop"],
+            "-xk PM7 CHARGE=0 CYCLES=9999 GEO-OK","-Otmp.mop"],
             stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         # check if obabel ran successfully
         # parameters: file exist, file size, "molecule converted" in STDOUT
