@@ -32,6 +32,9 @@ parser.add_argument("--seed", "-s", type=int, default=5,
                     help="Number of initial evaluations to build the GP model, default = 5")
 parser.add_argument("--iter", "-i", type=int, default=200,
                     help="Maximum number of iterations. Largest covariance matrix in GP = iter + seed, default = 200")
+parser.add_argument("--tol", "-t", type=float, default=0.001,
+                    help="Tolerance, stop iterations once absolute error is less then, default = 0.001")
+
 
 args = parser.parse_args()
 
@@ -43,6 +46,7 @@ ex_v_ex = args.exploration
 n_restart = args.restart
 target = args.target
 data_dir = args.data
+tol = args.tol
 # ================================================
 print("Searching for {:d}D BODIPY near {:f} eV".format(n_groups,  target))
 print("Reading ML model from {}".format(data_dir))
@@ -244,6 +248,9 @@ for i in range(n_iter):
             y_s0s1,
             target
         ))
+        if (np.abs(y_next - y_prev_old) < tol):
+            print("Desired Tolerance Reached")
+            break
         y_prev_old = y_next
     if not (len(set(x_next[0:len(x_next)//2])) == len(x_next)//2):
         continue
