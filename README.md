@@ -46,7 +46,7 @@ ITER    POS            GROUPS             S0S1(eV)        Target
 =================================================================
 ```
 
-Requirements:
+## Requirements:
 1. Python3
 2. Numpy
 3. Scipy (scipy.optimize.minimize for iter minimization)
@@ -63,7 +63,7 @@ Requirements:
 
 
 
-** Reference: **
+## Reference:
 [1] _Data-Driven Modeling of S0 -> S1 Transition in the Chemical Space of BODIPYs: High-Throughput Computation, Machine Learning Modeling and Inverse Design_,       
     Amit Gupta, Sabyasachi Chakraborty, Debashree Ghosh, Raghunathan Ramakrishnan                
     submitted (2021) arxiv
