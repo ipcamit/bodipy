@@ -1,9 +1,7 @@
 Bayesian Search For Substituted BODIPY
 ======================================
 
-`get_target_bodipy.py` is a simple Python program to explore the application of Bayesian optimization for BODIPY chemical space search.
-It utilizes Kernel Ridge Regression based ML model to evaluate the S<sub>0</sub>&#8594;S<sub>1</sub> excitation gap.<sup>1</sup>
-The Bayesian optimization is performed using Expected Improvement, with Gaussian Process based surrogate. The Gaussian Process model is built using `gaussian_process` module of `scikit-learn`. 
+`get_target_bodipy.py` is a simple Python program to explore the application of Bayesian optimization for BODIPY chemical space search. It utilizes Kernel Ridge Regression based ML model to evaluate the S<sub>0</sub>&#8594;S<sub>1</sub> excitation gap.<sup>1</sup> The Bayesian optimization is performed using Expected Improvement, with Gaussian Process based surrogate. The Gaussian Process model is built using `gaussian_process` module of `scikit-learn`. 
 
 It can be run using following command line
 ```
@@ -54,13 +52,6 @@ ITER    POS            GROUPS             S0S1(eV)        Target
 5. [MOPAC](http://openmopac.net/) for calculating minimum energy geometry at the PM7 level
 6. [OBabel](http://openbabel.org/wiki/Main_Page) for file conversion
 7. [QML](https://www.qmlcode.org/) for calculating the SLATM descriptor using the PM7 geometry
-     
-
-![](https://moldis.tifrh.res.in/index.html)
-<a href="https://moldis.tifrh.res.in/index.html">
-<img src="MolDis.png"  height="100">
-</a>
-
 
 
 ## Reference:
@@ -72,3 +63,9 @@ ITER    POS            GROUPS             S0S1(eV)        Target
 Please find complimentary web interface at [`https://moldis.tifrh.res.in/db/bodipy`](https://moldis.tifrh.res.in/db/bodipy).  
 
 https://moldis-group.github.io/BODIPYs/
+
+
+![](https://moldis.tifrh.res.in/index.html)
+<a href="https://moldis.tifrh.res.in/index.html">
+<img src="MolDis.png"  height="100">
+</a>
