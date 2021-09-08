@@ -1,7 +1,3 @@
----
-layout: default
----
-
 Bayesian Search For Substituted BODIPY
 ======================================
 
@@ -58,12 +54,7 @@ Requirements:
 5. [MOPAC](http://openmopac.net/) for calculating minimum energy geometry at the PM7 level
 6. [OBabel](http://openbabel.org/wiki/Main_Page) for file conversion
 7. [QML](https://www.qmlcode.org/) for calculating the SLATM descriptor using the PM7 geometry
-
-Please find complimentary web interface at [`https://moldis.tifrh.res.in/db/bodipy`](https://moldis.tifrh.res.in/db/bodipy).       
-
-
-
-
+     
 
 ![](https://moldis.tifrh.res.in/index.html)
 <a href="https://moldis.tifrh.res.in/index.html">
@@ -72,12 +63,12 @@ Please find complimentary web interface at [`https://moldis.tifrh.res.in/db/bodi
 
 
 
-***
-
-Reference:
+** Reference: **
 [1] _Data-Driven Modeling of S0 -> S1 Transition in the Chemical Space of BODIPYs: High-Throughput Computation, Machine Learning Modeling and Inverse Design_,       
     Amit Gupta, Sabyasachi Chakraborty, Debashree Ghosh, Raghunathan Ramakrishnan                
     submitted (2021) arxiv
 
+
+Please find complimentary web interface at [`https://moldis.tifrh.res.in/db/bodipy`](https://moldis.tifrh.res.in/db/bodipy).  
 
 https://moldis-group.github.io/BODIPYs/
