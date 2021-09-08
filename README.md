@@ -64,7 +64,7 @@ Please find complimentary web interface at [`https://moldis.tifrh.res.in/db/bodi
 
 
 
-
+***
 
 Reference:
 [1] _Data-Driven Modeling of S0 -> S1 Transition in the Chemical Space of BODIPYs: High-Throughput Computation, Machine Learning Modeling and Inverse Design_,       
