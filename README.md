@@ -57,9 +57,7 @@ Requirements:
 
 Please find complimentary web interface at [`https://moldis.tifrh.res.in/db/bodipy`](https://moldis.tifrh.res.in/db/bodipy).
 
-[![MOLDIS: A big data analytics platform for molecular discovery](https://moldis.tifrh.res.in/Images/MolDis.png)](https://moldis.tifrh.res.in/)
-
-![MOLDIS: A big data analytics platform for molecular discovery](https://moldis.tifrh.res.in/index.html)
+![](https://moldis.tifrh.res.in/index.html)
 <a href="https://moldis.tifrh.res.in/index.html">
 <img src="https://moldis.tifrh.res.in/Images/MolDis.png"  height="100">
 </a>
