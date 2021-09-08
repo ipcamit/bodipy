@@ -1,3 +1,7 @@
+---
+layout: default
+---
+
 Bayesian Search For Substituted BODIPY
 ======================================
 
