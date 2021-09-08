@@ -51,12 +51,19 @@ Requirements:
 2. Numpy
 3. Scipy (scipy.optimize.minimize for iter minimization)
 4. Scikit-learn (for Gaussian Process)
+5. [MOPAC](http://openmopac.net/) for calculating minimum energy geometry at the PM7 level
+6. [OBabel](http://openbabel.org/wiki/Main_Page) for file conversion
+7. [QML](https://www.qmlcode.org/) for calculating the SLATM descriptor using the PM7 geometry
 
-It also depends on [MOPAC](http://openmopac.net/), [OBabel](http://openbabel.org/wiki/Main_Page), and [QML](https://www.qmlcode.org/) for structure minimization, file conversion,  and descriptor generation.
+Please find complimentary web interface at [`https://moldis.tifrh.res.in/db/bodipy`](https://moldis.tifrh.res.in/db/bodipy).
 
-This program is part of [MOLDIS: A big data analytics platform for molecular discovery](https://moldis.tifrh.res.in/). Please find complementary web interface at [`https://moldis.tifrh.res.in/db/bodipy`](https://moldis.tifrh.res.in/db/bodipy).
 [![MOLDIS: A big data analytics platform for molecular discovery](https://moldis.tifrh.res.in/Images/MolDis.png)](https://moldis.tifrh.res.in/)
 
 Licence: MIT
 
-<sup>1</sup> link/to/arxiv
+Reference:
+[1] _Data-Driven Modeling of S0 -> S1 Transition in the Chemical Space of BODIPYs: High-Throughput Computation, Machine Learning Modeling and Inverse Design_,       
+    Amit Gupta, Sabyasachi Chakraborty, Debashree Ghosh, Raghunathan Ramakrishnan, submitted (2021) arxiv
+
+
+https://moldis-group.github.io/BODIPYs/
