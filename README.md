@@ -1,11 +1,16 @@
-Bayesian Search For Substituted BODIPY
+Inverse Design of Substituted BODIPY
 ======================================
+We provide python codes to inverse design BODIPY molecules, as discussed in Ref-1. 
 
-`get_target_bodipy.py` is a simple Python program to explore the application of Bayesian optimization for BODIPY chemical space search. It utilizes Kernel Ridge Regression based ML model to evaluate the S<sub>0</sub>&#8594;S<sub>1</sub> excitation gap.<sup>1</sup> The Bayesian optimization is performed using Expected Improvement, with Gaussian Process based surrogate. The Gaussian Process model is built using `gaussian_process` module of `scikit-learn`. 
+DesignBodipy_Bayes.py can be used to design molecules using Bayesian optimization based on Gaussian process regression.
 
-It can be run using following command line
+DesignBodipy_GA.py can be used for genetic algoritm (GA) optimization
+
+Both programs use a trained kernel ridge regression machine learning (KRR-ML) model to evaluate the S<sub>0</sub>&#8594;S<sub>1</sub> excitation energy.
+
+## Example run: Bayesian Optimization
 ```
-$ python3 get_target_bodipy.py <target(eV)>
+$ python3 DesignBodipy_Bayes.py <target(eV)>
 ```
 
 Additional parameters can be sought using `--help` argument. Given below are all possible flags.
@@ -24,7 +29,7 @@ Additional parameters can be sought using `--help` argument. Given below are all
 
 Once run, it will run for `iter` times and print successive improvements towards obtaining target molecule. An example run is shown below:
 ```
-$ python3 get_target_bodipy.py 2.7
+$ python3 DesignBodipy_Bayes.py 2.7
 
 Searching for 2D BODIPY near 2.700000 eV
 Reading ML model from ./data
@@ -43,6 +48,13 @@ ITER    POS            GROUPS             S0S1(eV)        Target
 83      5 4             34 6            2.709659        2.700000
 =================================================================
 ```
+
+
+## Example run: GA Optimization
+```
+$ python3 DesignBodipy_GA.py <target(eV)>
+```
+
 
 ## Requirements:
 1. Python3
