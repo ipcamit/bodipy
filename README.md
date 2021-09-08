@@ -59,6 +59,11 @@ Please find complimentary web interface at [`https://moldis.tifrh.res.in/db/bodi
 
 [![MOLDIS: A big data analytics platform for molecular discovery](https://moldis.tifrh.res.in/Images/MolDis.png)](https://moldis.tifrh.res.in/)
 
+![MOLDIS: A big data analytics platform for molecular discovery](https://moldis.tifrh.res.in/index.html)
+<a href="https://moldis.tifrh.res.in/index.html">
+<img src="https://moldis.tifrh.res.in/Images/MolDis.png"  height="100">
+</a>
+
 Licence: MIT
 
 Reference:
