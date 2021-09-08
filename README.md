@@ -67,7 +67,7 @@ Please find complimentary web interface at [`https://moldis.tifrh.res.in/db/bodi
 
 ![](https://moldis.tifrh.res.in/index.html)
 <a href="https://moldis.tifrh.res.in/index.html">
-<img src="https://moldis.tifrh.res.in/Images/MolDis.png"  height="100">
+<img src="MolDis.png"  height="100">
 </a>
 
 
