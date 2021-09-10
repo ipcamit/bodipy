@@ -57,7 +57,7 @@ $ python3 DesignBodipy_GA.py <target(eV)>
 
 
 ## Requirements:
-1. Python3
+1. Python3.6 and above
 2. Numpy
 3. Scipy (scipy.optimize.minimize for iter minimization)
 4. Scikit-learn (for Gaussian Process)
