@@ -1,221 +1,121 @@
-from operator import sub
+"""
+This program is part of MOLDIS: The bigdata analytics platform. Accompanying manuscript
+and the complementary web interface can be accessed at : https://moldis.tifrh.res.in/data/bodipy
+Python Requirements:
+numpy, scipy, scikit-learn, QML
+System Requirements:
+MOPAC, Obabel, write permission in running directory
+This file is specifically for Genetic Optimization problem. Although structure is same,
+not all keywords carry same meaning or uitility. 
+Licence: MIT
+"""
+# ========IMPORTS================
 import numpy as np
-from copy import deepcopy
-import random
+from sklearn import gaussian_process
+import scipy as sp
+import argparse as ap
+from GenerateBodipy import GenerateBodipy
+from GenerateSLATM import GenerateSLATM
+from GeneticOptimization import GA
+
+# ========ARGPARSER=================
+parser = ap.ArgumentParser(description="This program takes in a target value in eV and yield BODIPY molecules\
+    closer to that value. Only improvement over previous evaluations are displayed. ")
+parser.add_argument("target", type=float, help="Target S0->S1 value, in eV")
+parser.add_argument("--data", "-d", type=str, default="./data",
+                    help="Location of datafiles, default = ./data")
+parser.add_argument("--seed", "-s", type=int, default=20,
+                    help="Number of initial evaluations (Parent population) to build the GA model, default = 20")
+parser.add_argument("--iter", "-i", type=int, default=200,
+                    help="Maximum number of iterations (generations), default = 200")
+parser.add_argument("--mut", "-m", type=float, default=0.01,
+                    help="Probability of mutation of each group, default = 0.01")
+parser.add_argument("--tol", "-t", type=float, default=0.001,
+                    help="Tolerance, stop iterations once absolute error is less then, default = 0.001")
+
+args = parser.parse_args()
+
+# ==============================================
+n_iter = args.iter
+n_seeds = args.seed
+target = args.target
+data_dir = args.data
+tol = args.tol
+mut = args.mut
+# ================================================
+print("Searching for 7D BODIPY near {:f} eV".format(target))
+print("Reading ML model from {}".format(data_dir))
+print("Generations {:d}; Parent population {:d}".format(n_iter, n_seeds))
+print("Starting Genetic optization")
+# ================================================
 
 
-class GA:
+# ===================CLASSES==================================
+class KRRModel:
     """
-    This module contains collections of all functions and routines
-    needed for genetic algorithm based optimization.
-    It will contain namely:
-    evaluation : takes in list of descriptors and evaluate them one
-                by one
-    recombination : picks up the best one and keep them in a sinle
-                element in class
-    mutation : mutate parents and saves in elements to be evaluated
-    crossover : generate next generation
+    This class contains the KRR ML machine. The coefficients $\\alpha$
+    and descriptor, $d$, will be loaded from location <data>, using files 
+    named desc.npy and coeff.npy. Hyperaparameter$\\sigma$ is defined on 
+    the basis of median search. Energy is evaluated as
+    $$
+    E = \\sum_i \\alpha_i * exp(-\\frac{\\sum_j |(d_i - d_j)|}{\\sigma}).
+    $$
     """
-    def __init__(self,
-                mutation_rate = 0.01,
-                population_size = 10,
-                max_generation = 10,
-                dimensions=7,
-                max_eval=10,
-                obj_func = None,
-                target=0.0):
-        self.mutation_rate = mutation_rate
-        self.population_size = population_size
-        self.current_population = []
-        self.next_generation = []
-        self.to_evaluate = []
-        self.group_size = 46
-        self.current_loss = 999.0
-        self.current_best_loss = 0.0
-        self.max_generation = max_generation
-        self.max_eval = max_eval
-        self.obj_func = obj_func
-        self.dimensions = dimensions
+
+    def __init__(self, target, data_dir=data_dir):
+        self.desc = np.load("{}/desc.npy".format(data_dir))
+        # self.desc = self.desc[0:2000,:]
+        # self.desc = self.desc.astype("float")
+        self.coeff = np.load("{}/coeff.npy".format(data_dir))
+        # self.coeff = self.coeff[0:2000]
+        # self.sigma = 26.57
+        self.sigma = 840.087535153
         self.target = target
+        self.bodipy_generator = GenerateBodipy()
+        self.slatm_generator = GenerateSLATM()
 
-    def objective_func(self,bit_field):
+    def get_s0s1(self, descriptor):
+        desc_diff = np.exp(-np.sum(np.abs(self.desc -
+                           descriptor), axis=1)/self.sigma)
+        s0s1 = np.sum(desc_diff * self.coeff)
+        return s0s1
+
+    def get_loss(self, sub_array: np.ndarray):
         """
-        inputs bitstring and return the function value
+        Get loss function.
+        loss function = -(E - Target)**2; 
+        for inverted parabola to be optimzed using EI
+        param: descriptor (1x322 numpy array)
+        return: scalar loss
         """
-        # print("obfun",bit_field)
-        input_fields = self._bit_decode2(bit_field)
-        # print(self._bit_decode2(bit_field))
-        loss = self.obj_func(input_fields)
-        return loss
+        descriptor = self.gen_descriptor(sub_array)
+        s0s1 = self.get_s0s1(descriptor)
+        return (s0s1 - self.target)**2
 
-    def evaluate(self):
+    def gen_descriptor(self, sub_array:np.ndarray):
         """
-        evaluate all the molecules to be evaluated. Saved in 
-        list to_evaluate.
+        Generate SLATM descriptor based on input array.
+        Input array format: for array of len L, L/2 = n_groups 
+        [ <L/2 positions>, <L/2 substitution> ]
+        param: Len 1x(2*n_groups) array
+        return: 1x18023 slatm descriptor 
         """
-        i = 0
-        j = len(self.to_evaluate)
-        for input_bits in self.to_evaluate:
-            evaluated_loss = self.objective_func(input_bits)
-            print('Evaluating: {} of {}   \r'.format(i+1,j), end="")
-            if evaluated_loss < self.current_loss:
-                self.next_generation.append([input_bits, evaluated_loss])
-            i = i + 1
-        print("")
+        # print(sub_array)
+        positions = sub_array[0:len(sub_array)//2].astype(int)
+        substitutions= sub_array[len(sub_array)//2:len(sub_array)].astype(int)
+        descriptor = np.zeros((1, 18023))
+        self.bodipy_generator(list(positions.flatten()), list(substitutions.flatten()))
+        descriptor = self.slatm_generator()
+        return descriptor.reshape(1, -1)
 
 
-    def recombine(self):
-        tmp_population = []
-        tmp_population.extend(self.current_population)
-        tmp_population.extend(self.next_generation)
-        key_fn = lambda x: x[1]
-        tmp_population = sorted(tmp_population,key=key_fn)
-        self.current_population = deepcopy(tmp_population[0:self.population_size])
-        self.to_evaluate = []
-        self.next_generation = []
 
-    def mutate(self,bit_field):
-        """
-        go over each element and flip bit if probability is less then 
-        self.mutation_rate
-        """
-        mat = np.array(bit_field).reshape(7,-1)
-        if np.random.uniform() < self.mutation_rate:
-            row = np.random.choice(range(7))
-            mat[row,:] = 0
-            mat[row, np.random.choice(range(self.group_size))] = 1
-        bit_field = mat.reshape(1, -1).squeeze().tolist()
-        return bit_field
+# =======================INIT======================
+kkr = KRRModel(target=target, data_dir=data_dir)
+ga = GA(obj_func=kkr.get_loss, 
+        target=target, 
+        max_generation=n_iter, 
+        mutation_rate=mut, 
+        population_size=n_seeds)
+ga.optimize(tol)
 
-    def crossover(self,bit_field1, bit_field2):
-        "Randomly take elements from two bitfield and generate "
-        mat1 = np.array(bit_field1).reshape(7,-1)
-        mat2 = np.array(bit_field2).reshape(7,-1)
-        mat3 = np.zeros(mat1.shape)
-        for i in range(mat1.shape[0]):
-            mat3[i, :] = mat1[i, :] if (
-                np.random.uniform() < 0.5) else mat2[i, :]
-        bit_field = mat3.reshape(1, -1).squeeze().tolist()
-        return bit_field
-
-    def populate(self):
-        groups = [i for i in range(1, 47)]
-        positions = [i for i in range(1, 8)]
-        x_prev = []
-        # seed the search with s random 2D
-        print("Starting population estimation")
-        grps = np.random.choice(groups, (self.population_size, self.dimensions))
-        for i in range(self.population_size):
-            tmp = np.random.choice(positions, self.dimensions, replace=False)
-            tmp = np.insert(tmp, len(tmp), grps[i, :])
-            x_prev.append(tmp)
-            # print(tmp)
-
-        x_prev = np.array(x_prev)
-        y_prev = np.zeros((self.population_size, 1))
-        # print(x_prev)
-        # exit()
-        for i in range(self.population_size):
-            sub_array = x_prev[i]
-            # print(sub_array)
-            pos_sub = sub_array[0:len(sub_array)//2].astype(int)
-            grp_sub = sub_array[len(sub_array)//2:len(sub_array)].astype(int)
-            # print(pos_sub, grp_sub)
-            y_prev[i] = self.objective_func(self._bit_encode(pos_sub, grp_sub))
-            self.current_population.append(
-                [self._bit_encode(pos_sub, grp_sub), y_prev[i]])
-            print('Calculating parent: {}   \r'.format(i+1), end="")
-        print("")
-        key_fn = lambda x: x[1]
-        self.current_population = sorted(self.current_population, key=key_fn)
-
-    def population_selection(self):
-        pass
-
-    def update_score(self):
-        losses = []
-        for parent in self.current_population:
-            try:
-                losses.append(parent[1][0])
-            except IndexError:
-                losses.append(parent[1])
-        self.current_loss = np.median(np.array(losses))
-        self.current_best_loss = losses[0]
-        # print(np.median(np.array(losses)))
-        # print(losses)
-
-    def _bit_encode(self,positions, substitutions):
-        mat = np.zeros((7,self.group_size))
-        for pos, grp in zip(positions, substitutions):
-            mat[pos - 1, grp - 1] = 1
-        bit_field = mat.reshape(1, -1).squeeze().tolist()
-        return bit_field
-
-    def _bit_decode(self, bit_field):
-        pos = []
-        grp = []
-        mat = np.array(bit_field).reshape(7, -1)
-        for i, row in enumerate(mat):
-            pos.append(i)
-            grp.append(np.sum((np.array(range(self.group_size)) + 1) * row))
-        return pos, grp
-    
-    def _bit_decode2(self, bit_field):
-        pos = []
-        grp = []
-        mat = np.array(bit_field).reshape(7, -1)
-        for i, row in enumerate(mat):
-            pos.append(float(i+1))
-            grp.append(np.sum((np.array(range(self.group_size)) + 1) * row))
-        # print("decode", pos, (grp))
-        pos.extend(grp)
-        return np.array(pos)
-
-    def print_iter(self,generation):
-        print("Current Gen {:d}, Median: {:f}  Best: {:f}"
-                .format(generation,
-                    self.target + (self.current_loss)**0.5,
-                    self.target + (self.current_best_loss)**0.5))
-        pos,grp = self._bit_decode(self.current_population[0][0])
-        print("Best Groups {} ; Pos {}".format(grp, pos))
-        # except TypeError:
-        #     print("TypeErr", generation, self.current_loss,
-        #             self.current_best_loss)
-
-
-    def optimize(self,tol):
-        """
-        optimization in GA
-        """
-        # populate the corpus
-        self.populate()
-        # randomly select 0.25 to 1.00 times of current population for reproduction
-        next_parents = self.current_population[0:int(np.random.uniform(
-            low=self.population_size/4,
-            high=self.population_size))]
-        num_parents = len(next_parents)
-        self.update_score()
-        self.print_iter(0)
-        for generation in range(self.max_generation):
-            # generate unique parent pair for children
-            for i in range(0, num_parents):
-                for j in range(i + 1, num_parents):
-                    # print(next_parents[i], next_parents[j])
-                    child = self.crossover(
-                        next_parents[i][0], next_parents[j][0])
-                    child = self.mutate(child)
-                    self.to_evaluate.append(child)
-            random.shuffle(self.to_evaluate)
-            # Limit evaluations
-            self.to_evaluate = self.to_evaluate[0:np.max(self.max_eval, 0)]
-            # evaluate children
-            self.evaluate()
-            # recombine population
-            self.recombine()
-            # update scores
-            self.update_score()
-            if np.abs(self.current_best_loss - self.target) < tol:
-                print("Desired Tolerance Reached")
-                self.print_iter(generation + 1)
-                break
-            self.print_iter(generation + 1)
