@@ -139,7 +139,9 @@ class BayesOpt:
         Z = imp/(sigma+0.0000001)  # avoid nan
         ei = imp*sp.stats.norm.cdf(Z) + sigma * sp.stats.norm.pdf(Z)
         ei[sigma == 0.0] = 0.0  # ei =0 if sigma =0
-        return ei
+        return ei.flatten()
+	# for some reason now this is causing probelem with lbfgs.
+	# while initially it was not. This work for now, need to look into it deeper
 
     def next_location(self, x_prev, y_prev, gpr_model, constraints):
         """
