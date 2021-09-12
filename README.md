@@ -1,13 +1,16 @@
-Bayesian Search For Substituted BODIPY
+Inverse Design of Substituted BODIPY
 ======================================
+We provide python codes to inverse design BODIPY molecules, as discussed in Ref-1. 
 
-`get_target_bodipy.py` is a simple Python program to explore the application of Bayesian optimization for BODIPY chemical space search.
-It utilizes Kernel Ridge Regression based ML model to evaluate the S<sub>0</sub>&#8594;S<sub>1</sub> excitation gap.<sup>1</sup>
-The Bayesian optimization is performed using Expected Improvement, with Gaussian Process based surrogate. The Gaussian Process model is built using `gaussian_process` module of `scikit-learn`. 
+DesignBodipy_Bayes.py can be used to design molecules using Bayesian optimization based on Gaussian process regression.
 
-It can be run using following command line
+DesignBodipy_GA.py can be used for genetic algoritm (GA) optimization
+
+Both programs use a trained kernel ridge regression machine learning (KRR-ML) model to evaluate the S<sub>0</sub>&#8594;S<sub>1</sub> excitation energy.
+
+## Example run: Bayesian Optimization
 ```
-$ python3 get_target_bodipy.py <target(eV)>
+$ python3 DesignBodipy_Bayes.py <target(eV)>
 ```
 
 Additional parameters can be sought using `--help` argument. Given below are all possible flags.
@@ -26,7 +29,7 @@ Additional parameters can be sought using `--help` argument. Given below are all
 
 Once run, it will run for `iter` times and print successive improvements towards obtaining target molecule. An example run is shown below:
 ```
-$ python3 get_target_bodipy.py 2.7
+$ python3 DesignBodipy_Bayes.py 2.7
 
 Searching for 2D BODIPY near 2.700000 eV
 Reading ML model from ./data
@@ -46,17 +49,38 @@ ITER    POS            GROUPS             S0S1(eV)        Target
 =================================================================
 ```
 
-Requirements:
-1. Python3
+
+## Example run: GA Optimization
+```
+$ python3 DesignBodipy_GA.py <target(eV)>
+```
+
+
+## Requirements:
+1. Python3.6 and above
 2. Numpy
 3. Scipy (scipy.optimize.minimize for iter minimization)
 4. Scikit-learn (for Gaussian Process)
+5. [MOPAC](http://openmopac.net/) for calculating minimum energy geometry at the PM7 level
+6. [OBabel](http://openbabel.org/wiki/Main_Page) for file conversion
+7. [QML](https://www.qmlcode.org/) for calculating the SLATM descriptor using the PM7 geometry
 
-It also depends on [MOPAC](http://openmopac.net/), [OBabel](http://openbabel.org/wiki/Main_Page), and [QML](https://www.qmlcode.org/) for structure minimization, file conversion,  and descriptor generation.
+## Relevant resources
+A publicly accessible web interface hosting a trained machine learning (ML) model to predict S<sub>0</sub>  → S<sub>1</sub> excitation energy of BODIPYs is available at [`https://moldis.tifrh.res.in/db/bodipy`](https://moldis.tifrh.res.in/db/bodipy).  
 
-This program is part of [MOLDIS: A big data analytics platform for molecular discovery](https://moldis.tifrh.res.in/). Please find complementary web interface at [`https://moldis.tifrh.res.in/db/bodipy`](https://moldis.tifrh.res.in/db/bodipy).
-[![MOLDIS: A big data analytics platform for molecular discovery](https://moldis.tifrh.res.in/Images/MolDis.png)](https://moldis.tifrh.res.in/)
 
-Licence: MIT
+![](https://moldis.tifrh.res.in/index.html)
+<a href="https://moldis.tifrh.res.in/index.html">
+<img src="MolDis.png"  height="100">
+</a>
 
-<sup>1</sup> link/to/arxiv
+
+
+## Reference:
+[1] _Data-Driven Modeling of S0 -> S1 Transition in the Chemical Space of BODIPYs: High-Throughput Computation, Machine Learning Modeling and Inverse Design_,       
+    Amit Gupta, Sabyasachi Chakraborty, Debashree Ghosh, Raghunathan Ramakrishnan                
+    submitted (2021) arxiv                  
+    Dataset: [https://moldis-group.github.io/BODIPYs/](https://doi.org/10.6084/m9.figshare.16529214.v1)      
+    Dataset DOI: [10.6084/m9.figshare.16529214.v1](https://doi.org/10.6084/m9.figshare.16529214.v1)        
+
+
