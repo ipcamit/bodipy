@@ -9,28 +9,13 @@ DesignBodipy_GA.py can be used for genetic algoritm (GA) optimization
 Both programs use a trained kernel ridge regression machine learning (KRR-ML) model to evaluate the S<sub>0</sub>&#8594;S<sub>1</sub> excitation energy.
 
 ## Example run: Bayesian Optimization
-```
-$ python3 DesignBodipy_Bayes.py <target(eV)>
-```
 
-Additional parameters can be sought using `--help` argument. Given below are all possible flags.
-
----
-| Flag/ arg | Description | Default [range] | Compulsory |
-|:----:|:-----------:|:-------:|:----------:|
-|[target]| Target S0->S1 value, in eV. Positional argument, non optional.| - | &#10003; |
-| --group, -g | # of substitutions in target BODIPY. | 2 [2, 7]|&#x2717;|
-|  --data -d | Location of datafiles to be used in KRR ML, contains descriptor and coefficients.| `./data`|&#x2717;|
-|  --restart, -r | # of evaluations for single EI evaluation. More evaluations give more robust minima, with higher computation cost. | 5 [1, &#8734;] | &#x2717;|
-| --exploration, -x | Exploitation vs Exploration parameter | 0.01 (0,100)| &#x2717;|
-| --seed, -s | Number of initial evaluations to build Gaussian Process surrogate. More evaluations might help converging faster. | 5 [1, &#8734;] | &#x2717;|
-| --iter, -i | Maximum number of iterations. | 200 [1, &#8734;] | &#x2717;|
----
-
-Once run, it will run for `iter` times and print successive improvements towards obtaining target molecule. An example run is shown below:
 ```
 $ python3 DesignBodipy_Bayes.py 2.7
 ```
+
+Additional parameters can be obtained using the `--help` argument.     
+
 Screenshot of output
 ```
 Searching for 2D BODIPY near 2.700000 eV
@@ -57,7 +42,7 @@ ITER    POS            GROUPS             S0S1(eV)        Target
 $ python3 DesignBodipy_GA.py 2.7
 ```
 
-Additional parameters can be obtained using the `--help` argument. 
+Additional parameters can be obtained using the `--help` argument.        
 
 
 Screenshot of output
