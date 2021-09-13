@@ -63,9 +63,18 @@ Reading ML model from ./data
 Generations 200; Parent population 20
 Starting Genetic optization
 Starting population estimation
-Calculating parent: 20
+Calculating parent: 20   
 Current Gen 0, Median: 2.985662  Best: 2.767993
 Best Groups [19.0, 18.0, 20.0, 34.0, 45.0, 7.0, 30.0] ; Pos [0, 1, 2, 3, 4, 5, 6]
+Evaluating: 10 of 10   
+Current Gen 1, Median: 2.926014  Best: 2.767993
+Best Groups [19.0, 18.0, 20.0, 34.0, 45.0, 7.0, 30.0] ; Pos [0, 1, 2, 3, 4, 5, 6]
+Evaluating: 10 of 10   
+Current Gen 2, Median: 2.885984  Best: 2.708469
+Best Groups [19.0, 40.0, 14.0, 43.0, 23.0, 7.0, 11.0] ; Pos [0, 1, 2, 3, 4, 5, 6]
+Evaluating: 10 of 10   
+Current Gen 3, Median: 2.859153  Best: 2.708469
+Best Groups [19.0, 40.0, 14.0, 43.0, 23.0, 7.0, 11.0] ; Pos [0, 1, 2, 3, 4, 5, 6]
 ...
 
 ```
