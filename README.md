@@ -8,13 +8,21 @@ DesignBodipy_GA.py can be used for genetic algoritm (GA) optimization
 
 Both programs use a trained kernel ridge regression machine learning (KRR-ML) model to evaluate the S<sub>0</sub>&#8594;S<sub>1</sub> excitation energy.
 
+## Download the design code and SLATM descriptors for 77k training BODIPY molecules
+
+```
+git clone https://github.com/moldis-group/bodipy.git
+cd bodipy/data
+wget desc.npy
+```
+
 ## Example run: Bayesian Optimization
 
 ```
 $ python3 DesignBodipy_Bayes.py 2.7
 ```
 
-Additional parameters can be obtained using the `--help` argument.     
+Additional parameters can be obtained using `python3 DesignBodipy_Bayes.py --help`     
 
 Screenshot of output
 ```
@@ -42,7 +50,7 @@ ITER    POS            GROUPS             S0S1(eV)        Target
 $ python3 DesignBodipy_GA.py 2.7
 ```
 
-Additional parameters can be obtained using the `--help` argument.        
+Additional parameters can be obtained using `python3 DesignBodipy_GA.py --help`       
 
 
 Screenshot of output
