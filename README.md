@@ -52,7 +52,16 @@ ITER    POS            GROUPS             S0S1(eV)        Target
 
 ## Example run: GA Optimization
 ```
-$ python3 DesignBodipy_GA.py <target(eV)>
+$ python3 DesignBodipy_GA.py 2.7
+
+Searching for 7D BODIPY near 2.700000 eV
+Reading ML model from ./data
+Generations 200; Parent population 20
+Starting Genetic optization
+Starting population estimation
+Calculating parent: 1
+...
+
 ```
 
 
