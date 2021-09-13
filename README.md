@@ -56,6 +56,10 @@ ITER    POS            GROUPS             S0S1(eV)        Target
 ```
 $ python3 DesignBodipy_GA.py 2.7
 ```
+
+Additional parameters can be obtained using the `--help` argument. 
+
+
 Screenshot of output
 ```
 Searching for 7D BODIPY near 2.700000 eV
