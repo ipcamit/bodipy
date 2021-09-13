@@ -30,7 +30,9 @@ Additional parameters can be sought using `--help` argument. Given below are all
 Once run, it will run for `iter` times and print successive improvements towards obtaining target molecule. An example run is shown below:
 ```
 $ python3 DesignBodipy_Bayes.py 2.7
-
+```
+Screenshot of output
+```
 Searching for 2D BODIPY near 2.700000 eV
 Reading ML model from ./data
 Iterations 200; Initial evaluations 5
@@ -53,13 +55,17 @@ ITER    POS            GROUPS             S0S1(eV)        Target
 ## Example run: GA Optimization
 ```
 $ python3 DesignBodipy_GA.py 2.7
-
+```
+Screenshot of output
+```
 Searching for 7D BODIPY near 2.700000 eV
 Reading ML model from ./data
 Generations 200; Parent population 20
 Starting Genetic optization
 Starting population estimation
-Calculating parent: 1
+Calculating parent: 20
+Current Gen 0, Median: 2.985662  Best: 2.767993
+Best Groups [19.0, 18.0, 20.0, 34.0, 45.0, 7.0, 30.0] ; Pos [0, 1, 2, 3, 4, 5, 6]
 ...
 
 ```
