@@ -70,7 +70,7 @@ Best Groups [19.0, 40.0, 14.0, 43.0, 23.0, 7.0, 11.0] ; Pos [0, 1, 2, 3, 4, 5, 6
 
 
 ## Requirements:
-1. Python3.6 and above
+1. Python3.6 [tested]
 2. Numpy
 3. Scipy (scipy.optimize.minimize for iter minimization)
 4. Scikit-learn (for Gaussian Process)
