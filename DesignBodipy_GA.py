@@ -28,8 +28,8 @@ parser.add_argument("--seed", "-s", type=int, default=20,
                     help="Number of initial evaluations (Parent population) to build the GA model, default = 20")
 parser.add_argument("--iter", "-i", type=int, default=200,
                     help="Maximum number of iterations (generations), default = 200")
-parser.add_argument("--mut", "-m", type=float, default=0.01,
-                    help="Probability of mutation of each group, default = 0.01")
+parser.add_argument("--mut", "-m", type=float, default=0.1,
+                    help="Probability of mutation of each group, default = 0.1")
 parser.add_argument("--tol", "-t", type=float, default=0.001,
                     help="Tolerance, stop iterations once absolute error is less then, default = 0.001")
 
