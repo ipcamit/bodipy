@@ -13,7 +13,8 @@ Both programs use a trained kernel ridge regression machine learning (KRR-ML) mo
 ```
 git clone https://github.com/moldis-group/bodipy.git
 cd bodipy/data
-wget desc.npy
+wget http://moldis.tifrh.res.in/bodipy/desc.npy
+cd ..
 ```
 
 ## Example run: Bayesian Optimization
