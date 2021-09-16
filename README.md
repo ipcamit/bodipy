@@ -2,9 +2,9 @@ Inverse Design of Substituted BODIPY
 ======================================
 We provide python codes to inverse design BODIPY molecules, as discussed in Ref-1. 
 
-DesignBodipy_Bayes.py can be used to design molecules using Bayesian optimization based on Gaussian process regression.
+`DesignBodipy_Bayes.py` can be used to design molecules using Bayesian optimization based on Gaussian process regression.
 
-DesignBodipy_GA.py can be used for genetic algoritm (GA) optimization
+`DesignBodipy_GA.py` can be used for genetic algoritm (GA) optimization
 
 Both programs use a trained kernel ridge regression machine learning (KRR-ML) model to evaluate the S<sub>0</sub>&#8594;S<sub>1</sub> excitation energy.
 
