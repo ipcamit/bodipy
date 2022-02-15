@@ -99,7 +99,7 @@ A publicly accessible web interface hosting a trained machine learning (ML) mode
 
 
 ## Reference:
-[1] _Data-Driven Modeling of S0 -> S1 Transition in the Chemical Space of BODIPYs: High-Throughput Computation, Machine Learning Modeling and Inverse Design_,       
+[1] _Data-Driven Modeling of S0 -> S1 Transition in the Chemical Space of BODIPYs: High-Throughput Computation, Machine Learning Modeling and Inverse Design_          
     Amit Gupta, Sabyasachi Chakraborty, Debashree Ghosh, Raghunathan Ramakrishnan                
     The Journal of Chemical Physics, 155 (2021) 244102.     
     DOI: [https://doi.org/10.1063/5.0076787](https://doi.org/10.1063/5.0076787)     
