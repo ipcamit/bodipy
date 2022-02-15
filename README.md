@@ -103,7 +103,7 @@ A publicly accessible web interface hosting a trained machine learning (ML) mode
     Amit Gupta, Sabyasachi Chakraborty, Debashree Ghosh, Raghunathan Ramakrishnan                
     The Journal of Chemical Physics, 155 (2021) 244102.     
     DOI: [https://doi.org/10.1063/5.0076787](https://doi.org/10.1063/5.0076787)     
-    Dataset: [https://moldis-group.github.io/BODIPYs/](https://doi.org/10.6084/m9.figshare.16529214.v1)      
+    Dataset: [https://moldis-group.github.io/BODIPYs/](https://moldis-group.github.io/BODIPYs/)      
     Dataset DOI: [10.6084/m9.figshare.16529214.v1](https://doi.org/10.6084/m9.figshare.16529214.v1)        
 
 
