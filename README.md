@@ -2,35 +2,31 @@ Inverse Design of Substituted BODIPY
 ======================================
 We provide python codes to inverse design BODIPY molecules, as discussed in Ref-1. 
 
-DesignBodipy_Bayes.py can be used to design molecules using Bayesian optimization based on Gaussian process regression.
+`DesignBodipy_Bayes.py` can be used to design molecules using Bayesian optimization based on Gaussian process regression.
 
-DesignBodipy_GA.py can be used for genetic algoritm (GA) optimization
+`DesignBodipy_GA.py` can be used for genetic algoritm (GA) optimization
 
 Both programs use a trained kernel ridge regression machine learning (KRR-ML) model to evaluate the S<sub>0</sub>&#8594;S<sub>1</sub> excitation energy.
 
+## Download the design code and SLATM descriptors for 77k training BODIPY molecules
+
+```
+git clone https://github.com/moldis-group/bodipy.git
+cd bodipy/data
+wget http://moldis.tifrh.res.in/bodipy/desc.npy
+cd ..
+```
+
 ## Example run: Bayesian Optimization
-```
-$ python3 DesignBodipy_Bayes.py <target(eV)>
-```
 
-Additional parameters can be sought using `--help` argument. Given below are all possible flags.
-
----
-| Flag/ arg | Description | Default [range] | Compulsory |
-|:----:|:-----------:|:-------:|:----------:|
-|[target]| Target S0->S1 value, in eV. Positional argument, non optional.| - | &#10003; |
-| --group, -g | # of substitutions in target BODIPY. | 2 [2, 7]|&#x2717;|
-|  --data -d | Location of datafiles to be used in KRR ML, contains descriptor and coefficients.| `./data`|&#x2717;|
-|  --restart, -r | # of evaluations for single EI evaluation. More evaluations give more robust minima, with higher computation cost. | 5 [1, &#8734;] | &#x2717;|
-| --exploration, -x | Exploitation vs Exploration parameter | 0.01 (0,100)| &#x2717;|
-| --seed, -s | Number of initial evaluations to build Gaussian Process surrogate. More evaluations might help converging faster. | 5 [1, &#8734;] | &#x2717;|
-| --iter, -i | Maximum number of iterations. | 200 [1, &#8734;] | &#x2717;|
----
-
-Once run, it will run for `iter` times and print successive improvements towards obtaining target molecule. An example run is shown below:
 ```
 $ python3 DesignBodipy_Bayes.py 2.7
+```
 
+Additional parameters can be obtained using `python3 DesignBodipy_Bayes.py --help`     
+
+Screenshot of output
+```
 Searching for 2D BODIPY near 2.700000 eV
 Reading ML model from ./data
 Iterations 200; Initial evaluations 5
@@ -52,12 +48,38 @@ ITER    POS            GROUPS             S0S1(eV)        Target
 
 ## Example run: GA Optimization
 ```
-$ python3 DesignBodipy_GA.py <target(eV)>
+$ python3 DesignBodipy_GA.py 2.7
+```
+
+Additional parameters can be obtained using `python3 DesignBodipy_GA.py --help`       
+
+
+Screenshot of output
+```
+Searching for 7D BODIPY near 2.700000 eV
+Reading ML model from ./data
+Generations 200; Parent population 20
+Starting Genetic optization
+Starting population estimation
+Calculating parent: 20   
+Current Gen 0, Median: 2.985662  Best: 2.767993
+Best Groups [19.0, 18.0, 20.0, 34.0, 45.0, 7.0, 30.0] ; Pos [0, 1, 2, 3, 4, 5, 6]
+Evaluating: 10 of 10   
+Current Gen 1, Median: 2.926014  Best: 2.767993
+Best Groups [19.0, 18.0, 20.0, 34.0, 45.0, 7.0, 30.0] ; Pos [0, 1, 2, 3, 4, 5, 6]
+Evaluating: 10 of 10   
+Current Gen 2, Median: 2.885984  Best: 2.708469
+Best Groups [19.0, 40.0, 14.0, 43.0, 23.0, 7.0, 11.0] ; Pos [0, 1, 2, 3, 4, 5, 6]
+Evaluating: 10 of 10   
+Current Gen 3, Median: 2.859153  Best: 2.708469
+Best Groups [19.0, 40.0, 14.0, 43.0, 23.0, 7.0, 11.0] ; Pos [0, 1, 2, 3, 4, 5, 6]
+...
+
 ```
 
 
 ## Requirements:
-1. Python3.6 and above
+1. Python3.6 [tested]
 2. Numpy
 3. Scipy (scipy.optimize.minimize for iter minimization)
 4. Scikit-learn (for Gaussian Process)
@@ -77,10 +99,11 @@ A publicly accessible web interface hosting a trained machine learning (ML) mode
 
 
 ## Reference:
-[1] _Data-Driven Modeling of S0 -> S1 Transition in the Chemical Space of BODIPYs: High-Throughput Computation, Machine Learning Modeling and Inverse Design_,       
+[1] _Data-Driven Modeling of S0 -> S1 Transition in the Chemical Space of BODIPYs: High-Throughput Computation, Machine Learning Modeling and Inverse Design_          
     Amit Gupta, Sabyasachi Chakraborty, Debashree Ghosh, Raghunathan Ramakrishnan                
-    submitted (2021) arxiv                  
-    Dataset: [https://moldis-group.github.io/BODIPYs/](https://doi.org/10.6084/m9.figshare.16529214.v1)      
+    The Journal of Chemical Physics, 155 (2021) 244102.     
+    DOI: [https://doi.org/10.1063/5.0076787](https://doi.org/10.1063/5.0076787)     
+    Dataset: [https://moldis-group.github.io/BODIPYs/](https://moldis-group.github.io/BODIPYs/)      
     Dataset DOI: [10.6084/m9.figshare.16529214.v1](https://doi.org/10.6084/m9.figshare.16529214.v1)        
 
 
